@@ -3,6 +3,7 @@ require 'yaml'
 require 'hldr/inliners/script_inliner'
 require 'hldr/inliners/image_inliner'
 require 'hldr/inliners/style_inliner'
+require 'hldr/hldr_globals'
 
 class HldrProcessor
 
@@ -28,20 +29,31 @@ class HldrProcessor
 
     end
 
+    # inline resources specified in the ENV file
     def add_scaffolding
 
-        hldr_config = YAML.load_file('.hldrconfig')
+        # load yaml env file
+        env_path = File::join(Dir::pwd, HLDR_ENV)
+
+        return if !File::exists? env_path
+        return if File.zero?(env_path)
+        hldr_config = YAML.load_file(env_path)
+
+        # ensure scaffolding section is defined
+        return if !hldr_config || hldr_config["scaffolding"].empty?
+
         hldr_config["scaffolding"].each do |resource|
 
             # if ends in .css or is a hash with value of css, add style
             if resource[-4..-1] == ".css"
                 
                 css_res = Nokogiri::XML::Node.new "style", @doc
-                css_res.content = open(resource).read
+                res_handler = open(resource)
+                css_res.content = res_handler.read
                 css_res[:type] = "text/css"
-
                 head = @doc.at_css("html") 
-                head << css_res
+                head << css_res if !head.nil?
+                res_handler.close
                 
             end
 
@@ -49,6 +61,7 @@ class HldrProcessor
 
     end
 
+    # copy all asset content directly into the original document
     def inline_assets
 
         inliners = {
@@ -57,7 +70,7 @@ class HldrProcessor
         }
 
         # inhibit embedding images if flag set
-        if @options[:no_embed]
+        if @options[:images]
             inliners[:img] = ImageInliner
         end
 
@@ -69,18 +82,33 @@ class HldrProcessor
 
         end
 
-        
-
     end
 
-    # creates a cache location
-    def HldrProcessor.generate_cache
-        Dir::mkdir ".hldr" if !Dir::exist? ".hldr"
+    # creates a cache location (optionally in another path)
+    def HldrProcessor.generate_cache(path)
+        # guard against bogus path
+        return nil if (!path.nil? && !Dir::exist?(path))
+
+        dir_path = File::join(Dir::pwd, HLDR_CACHE)
+        dir_path = File::join(path, HLDR_CACHE) if path
+
+        Dir::mkdir(dir_path) if !Dir::exist? dir_path
     end
 
-    # creates a new config file
-    def HldrProcessor.generate_config
-        File::open ".hldrconfig", "w" if !File::exist? ".hldrconfig"
+    # creates a new config file (optionally in another path)
+    def HldrProcessor.generate_env(path)
+        # guard against bogus path
+        return nil if (!path.nil? && !Dir::exist?(path))
+
+        env_path = File::join(Dir::pwd, HLDR_ENV)
+        env_path = File::join(path, HLDR_ENV) if path
+
+        if !File::exist? env_path
+            env_file = File::open(env_path, "w") 
+            env_file.write("scaffolding:\n")
+            env_file.close
+        end
+
     end
 
 end

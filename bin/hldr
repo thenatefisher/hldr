@@ -1,2 +1,2 @@
 #!/usr/bin/env ruby
-require 'hldr/hldr_entry'
+require 'hldr'

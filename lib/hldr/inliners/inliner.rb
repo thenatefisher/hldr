@@ -33,11 +33,19 @@ class Inliner
 
         begin
             if location[0..3] == "http"
-                content[:data] = open(location).read
-                content[:type] = open(location).meta["content-type"]
+                handler = open(location)
+                return if !handler
+
+                content[:data] = handler.read
+                content[:type] = handler.meta["content-type"]
+                handler.close
             else
-                content[:data] = File::open(location, "rb").read
+                handler = File::open(location, "rb")
+                return if !handler
+                
+                content[:data] = handler.read
                 content[:type] = self.get_image_extension(location)
+                handler.close
             end 
         rescue
         end
