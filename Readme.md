@@ -57,6 +57,7 @@ As a bonus, swapping out assets is a breeze:
       - http://somecdn.com/js/BBD-G23-4SIOU23-452 : js
 
 ## The Future
+- [x] ship anything
 - [ ] compress images, html, js and css 
 - [ ] templates
 - [ ] support md
