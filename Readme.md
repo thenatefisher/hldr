@@ -58,12 +58,6 @@ As a bonus, swapping out assets is a breeze:
     $ hldr add bootstrap-2.3.0
     $ hldr cakeRecipe.md > cakeRecipeFlatFile_using_Bootstrap2.html
 
-
-## Limitations
-
-1. The file is going to be big. If you choose to embed images, it will be significantly larger than referencing them externally. However, this isn't too big a deal for a small amount of images. Also, if you decide against this feature, it's easily disabled with the `--no-images` flag.
-1. Internet Explorer 8 will not show any embedded image data over 32k. Awesome, right? 
-
 ## Example Config File
 
     scaffolding:
@@ -73,6 +67,11 @@ As a bonus, swapping out assets is a breeze:
 **Note:** You can use the `hldr add` sub-command to search and bring in content hosted on CDNJS, right from the command line. 
 
 This file (`.hldrenv`) resides in the projcet root. Basically, just specify the resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either `js` or `css`). 
+
+## Limitations
+
+1. The file is going to be big. If you choose to embed images, it will be significantly larger than referencing them externally. However, this isn't too big a deal for a small amount of images. Also, if you decide against this feature, it's easily disabled with the `--no-images` flag.
+1. Internet Explorer 8 will not show any embedded image data over 32k. Awesome, right? 
 
 ## The Future
 * compress images, html, js and css 
