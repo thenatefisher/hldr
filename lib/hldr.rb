@@ -17,8 +17,6 @@ Examples:
 Commands: 
     init        Creates a env file
     new NAME    Creates a new document folder, empty contents and a env file
-    add         Add a package to environment
-    rm          Remove a package from environment
 
 Options:
 
@@ -32,19 +30,13 @@ hldr_cmd = ARGV.shift
 case hldr_cmd
 
   when "init"
-        # create env and cache
-        HldrProcessor::generate_env
-        HldrProcessor::generate_cache
-
-  when "add"
-        # add stuff to env file
-
-  when "rm"
-        # remove stuff from env file   
+    # create env and cache
+    HldrProcessor::generate_env
+    HldrProcessor::generate_cache
 
   when "new"  
     if ARGV.first.nil?
-        puts "Name of document required for NEW command."
+        Trollop::die "Name of project required for NEW command"
     else
         # create project folder
         if !Dir::exist? ARGV.first

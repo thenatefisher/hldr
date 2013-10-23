@@ -40,20 +40,51 @@ class HldrProcessor
         hldr_config = YAML.load_file(env_path)
 
         # ensure scaffolding section is defined
-        return if !hldr_config || hldr_config["scaffolding"].empty?
+        return if !hldr_config || 
+            hldr_config["scaffolding"].nil? || 
+            hldr_config["scaffolding"].empty?
 
         hldr_config["scaffolding"].each do |resource|
 
             # if ends in .css or is a hash with value of css, add style
-            if resource[-4..-1] == ".css"
+            if (resource[-4..-1] == ".css") || 
+                (resource.is_a?(Hash) && resource[resource.keys.first] == "css")
+
+                begin
+                    css_res = Nokogiri::XML::Node.new "style", @doc
+                    res_handler = open(resource)
+                    next if !res_handler
+
+                    css_res.content = res_handler.read
+                    css_res[:type] = "text/css"
+                    head = @doc.at_css("html") 
+                    head << css_res if !head.nil?
+
+                    res_handler.close
+                rescue
+                    next
+                end
                 
-                css_res = Nokogiri::XML::Node.new "style", @doc
-                res_handler = open(resource)
-                css_res.content = res_handler.read
-                css_res[:type] = "text/css"
-                head = @doc.at_css("html") 
-                head << css_res if !head.nil?
-                res_handler.close
+            end
+
+            # if ends in .js or is a hash with value of js, add script
+            if (resource[-4..-1] == ".js") || 
+                (resource.is_a?(Hash) && resource[resource.keys.first] == "js")
+
+                begin
+                    css_res = Nokogiri::XML::Node.new "script", @doc
+                    res_handler = open(resource)
+                    next if !res_handler
+
+                    css_res.content = res_handler.read
+                    css_res[:type] = "text/javascript"
+                    head = @doc.at_css("html") 
+                    head << css_res if !head.nil?
+
+                    res_handler.close
+                rescue
+                    next
+                end
                 
             end
 

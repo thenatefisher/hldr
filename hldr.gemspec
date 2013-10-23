@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Nate Fisher"]
   s.email       = 'nate.scott.fisher@gmail.com'
   s.files       = Dir["{bin,lib,test}/**/*", "*.md", "Rakefile"].reject { |f| File.directory?(f) }
-  s.homepage    = 'http://github.com/thenatefisher/hldr'
+  s.homepage    = 'http://thenatefisher.github.io/hldr'
   s.license     = 'MIT'
 
   s.add_runtime_dependency "nokogiri", "~> 1.6"

@@ -33,40 +33,15 @@ Installation is simple, just suck down the gem via `gem install hldr`
 
 You can then immediately use the binary on any HTML file (`hldr document.html`), or you can have Hldr help you setup a new document with popular frameworks (see next section).
 
-## Really advanced usage
+## Environment File
 
-Create a new document:
-
-    $ hldr new cakeRecipe
-    $ cd cakeRecipe
-
-Have Hldr bootstrap a new feature-rich interactive HTML document with your fav frameworks (uses tab-completion to search through the [CDNJS](http://cdnjs.com/) repo). All of these settings will be saved to a `.hldrenv` file in the project root directory:
-
-    $ hldr add bootstrap-3.0.0-rc2 
-    $ hldr add jquery-mobile js
-    $ hldr add d3 js
-    $ hldr add flatui css
-    $ hldr add anotherCssJsFw
-
-Now hack on some HTML file, build content or create an amazing new interaction experience. Then build it with the environment configured above:
-
-    $ hldr cakeRecipe.html > cakeRecipeFlatFile.html
-
-As a bonus, swapping out assets is a breeze: 
-
-    $ hldr rm bootstrap-3.0.0-rc2
-    $ hldr add bootstrap-2.3.0
-    $ hldr cakeRecipe.md > cakeRecipeFlatFile_using_Bootstrap2.html
-
-## Example Config File
+This file (`.hldrenv`) resides in the project root and can help you jump start a project by adding libraries and frameworks quickly. If you already have a resource linked into your HTML file, you would not want to have it in this file as well. An environment file can be created with `hldr init` or `hldr new NAME`
 
     scaffolding:
       - http://somecdn.com/css/bootstrap.min.css
       - http://somecdn.com/js/BBD-G23-4SIOU23-452 : js
 
-**Note:** You can use the `hldr add` sub-command to search and bring in content hosted on CDNJS, right from the command line. 
-
-This file (`.hldrenv`) resides in the projcet root. Basically, just specify the resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either `js` or `css`). 
+Using it is simple. Just specify the remote resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either `js` or `css`). 
 
 ## Limitations
 
