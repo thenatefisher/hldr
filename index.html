@@ -1,79 +1,146 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Hldr : A Ruby gem to generate portable interactive documents by compiling all linked assets from an HTML document into a single file." />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Hldr</title>
+    <title>Hldr by thenatefisher</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Hldr</h1>
+        <h2>A Ruby gem to generate portable interactive documents by compiling all linked assets from an HTML document into a single file.</h2>
+        <a href="https://github.com/thenatefisher/hldr" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/thenatefisher/hldr">View on GitHub</a>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Suppose you have a somewhat complicated, well broken out HTML document or front-end prototype that you want to quickly show a non-technical colleague, Bernard. Your document may look like this:</p>
 
-          <h1 id="project_title">Hldr</h1>
-          <h2 id="project_tagline">A Ruby gem to generate portable interactive documents by compiling all linked assets from an HTML document into a single file.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/thenatefisher/hldr/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/thenatefisher/hldr/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>.
+└── img
+│   ├── icons
+│   │   └── star.png
+│   └── cake_decors.png
+│   └── kittens.png
+├── js
+│   ├── app.js
+│   └── jquery.js
+├── css
+│   ├── app.css
+│   └── bootstrap.css
+│
+└── cakeRecipe.html
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Wouldn't it be great if we could quickly compile all of this into a <strong>single</strong> file to give Bernard?</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<pre><code>$ hldr cakeRecipe.html &gt; flatfile.html
+</code></pre>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p><img src="http://i.imgflip.com/4cgiz.jpg" alt="There can be only be one"></p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>Yeah, obviously the output is a lot bigger than the original structure or a zip archive (especially if embedding images), but this is easier and cleaner for all parties involved. The vision for Hldr is twofold:</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<ol>
+<li>Allow (even non-technical) content creators to more easily leverage modern interactive frameworks within their document.</li>
+<li>Make server-less (and connection-less) HTML content and front-end prototype sharing quick and easy.</li>
+</ol><h2>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h2>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>Installation is simple, just suck down the gem via <code>gem install hldr</code></p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>You can then immediately use the binary on any HTML file (<code>hldr document.html</code>), or you can have Hldr help you setup a new document with popular frameworks (see next section).</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h2>
+<a name="really-advanced-usage" class="anchor" href="#really-advanced-usage"><span class="octicon octicon-link"></span></a>Really advanced usage</h2>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
+<p>Create a new document:</p>
+
+<pre><code>$ hldr new cakeRecipe
+$ cd cakeRecipe
+</code></pre>
+
+<p>Have Hldr bootstrap a new feature-rich interactive HTML document with your fav frameworks (uses tab-completion to search through the <a href="http://cdnjs.com/">CDNJS</a> repo). All of these settings will be saved to a <code>.hldrenv</code> file in the project root directory:</p>
+
+<pre><code>$ hldr add bootstrap-3.0.0-rc2 
+$ hldr add jquery-mobile js
+$ hldr add d3 js
+$ hldr add flatui css
+$ hldr add anotherCssJsFw
+</code></pre>
+
+<p>Now hack on some HTML file, build content or create an amazing new interaction experience. Then build it with the environment configured above:</p>
+
+<pre><code>$ hldr cakeRecipe.html &gt; cakeRecipeFlatFile.html
+</code></pre>
+
+<p>As a bonus, swapping out assets is a breeze: </p>
+
+<pre><code>$ hldr rm bootstrap-3.0.0-rc2
+$ hldr add bootstrap-2.3.0
+$ hldr cakeRecipe.md &gt; cakeRecipeFlatFile_using_Bootstrap2.html
+</code></pre>
+
+<h2>
+<a name="example-config-file" class="anchor" href="#example-config-file"><span class="octicon octicon-link"></span></a>Example Config File</h2>
+
+<pre><code>scaffolding:
+  - http://somecdn.com/css/bootstrap.min.css
+  - http://somecdn.com/js/BBD-G23-4SIOU23-452 : js
+</code></pre>
+
+<p><strong>Note:</strong> You can use the <code>hldr add</code> sub-command to search and bring in content hosted on CDNJS, right from the command line. </p>
+
+<p>This file (<code>.hldrenv</code>) resides in the projcet root. Basically, just specify the resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either <code>js</code> or <code>css</code>). </p>
+
+<h2>
+<a name="limitations" class="anchor" href="#limitations"><span class="octicon octicon-link"></span></a>Limitations</h2>
+
+<ol>
+<li>The file is going to be big. If you choose to embed images, it will be significantly larger than referencing them externally. However, this isn't too big a deal for a small amount of images. Also, if you decide against this feature, it's easily disabled with the <code>--no-images</code> flag.</li>
+<li>Internet Explorer 8 will not show any embedded image data over 32k. Awesome, right? </li>
+</ol><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Gitty up! If you love it and you know it, send a pull request!</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Hldr is released under the <a href="http://www.opensource.org/licenses/MIT">MIT License</a>.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/thenatefisher/hldr/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/thenatefisher/hldr/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/thenatefisher/hldr"></a> is maintained by <a href="https://github.com/thenatefisher">thenatefisher</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Hldr maintained by <a href="https://github.com/thenatefisher">thenatefisher</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
 </html>
