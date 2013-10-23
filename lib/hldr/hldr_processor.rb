@@ -116,7 +116,7 @@ class HldrProcessor
     end
 
     # creates a cache location (optionally in another path)
-    def HldrProcessor.generate_cache(path)
+    def HldrProcessor.generate_cache(path=nil)
         # guard against bogus path
         return nil if (!path.nil? && !Dir::exist?(path))
 
@@ -127,7 +127,7 @@ class HldrProcessor
     end
 
     # creates a new config file (optionally in another path)
-    def HldrProcessor.generate_env(path)
+    def HldrProcessor.generate_env(path=nil)
         # guard against bogus path
         return nil if (!path.nil? && !Dir::exist?(path))
 
