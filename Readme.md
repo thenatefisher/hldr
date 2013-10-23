@@ -50,13 +50,13 @@ Have Hldr bootstrap a new feature-rich interactive HTML document with your fav f
 
 Now hack on some HTML file, build content or create an amazing new interaction experience. Then build it with the environment configured above:
 
-    $ hldr cakeRecipe.html > flatfile.html
+    $ hldr cakeRecipe.html > cakeRecipeFlatFile.html
 
 As a bonus, swapping out assets is a breeze: 
 
     $ hldr rm bootstrap-3.0.0-rc2
     $ hldr add bootstrap-2.3.0
-    $ hldr cakeRecipe.md > flatCakeRecipeFile.html
+    $ hldr cakeRecipe.md > cakeRecipeFlatFile_using_Bootstrap2.html
 
 
 ## Limitations
