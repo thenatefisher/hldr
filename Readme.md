@@ -70,15 +70,15 @@ As a bonus, swapping out assets is a breeze:
       - http://somecdn.com/css/bootstrap.min.css
       - http://somecdn.com/js/BBD-G23-4SIOU23-452 : js
 
-Not a lot to it. Basically, just specify the resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either `js` or `css`). You can also use the `hldr add` sub-command to search and bring in content hosted on CDNJS, right from the command line.
+**Note:** You can use the `hldr add` sub-command to search and bring in content hosted on CDNJS, right from the command line. 
+
+This file (`.hldrenv`) resides in the projcet root. Basically, just specify the resources you want included and Hldr will always inline the content. If the resource type cannot be determined by extension, it will be ignored. However, you can force a content type by using a colon and then the type (which can be either `js` or `css`). 
 
 ## The Future
 * compress images, html, js and css 
 * templates
-* support md
-* support haml
-* Keep everything in .hldr cache
-* fetch remotes
+* keep everything in .hldr cache
+* set max cache size in config
 * support inline of css `@import`
 * support inline of css `@import` media queries
 * support inline of css fonts 
@@ -87,6 +87,15 @@ Not a lot to it. Basically, just specify the resources you want included and Hld
 * create gem that installs to path
 * handle css, scss, less, sass
 * handle requireJs
-* set max cache size in config
 * support input files outside of pwd
+* support remote input
+* support markdown input
+* support haml input
 
+## Contributing
+
+Gitty up! If you love it and you know it, send a pull request!
+
+## License
+
+Hldr is released under the [MIT License](http://www.opensource.org/licenses/MIT).
